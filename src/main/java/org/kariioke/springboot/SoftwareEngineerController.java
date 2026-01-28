@@ -25,4 +25,10 @@ public class SoftwareEngineerController {
                 )
         );
     }
+
+    @GetMapping
+    public void getEngineer(Integer Id) {
+    }
+
+
 }
