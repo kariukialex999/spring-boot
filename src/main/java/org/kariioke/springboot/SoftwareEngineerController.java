@@ -10,6 +10,8 @@ import java.util.List;
 @RequestMapping("api/v1/software-engineers")
 public class SoftwareEngineerController {
 
+    public SoftwareEngineerService softwareEngineerService;
+
     @GetMapping
     public List<SoftwareEngineer> getEngineers() {
         return List.of(
@@ -27,7 +29,8 @@ public class SoftwareEngineerController {
     }
 
     @GetMapping
-    public void getEngineer(Integer Id) {
+    public void getEngineer(Integer id) {
+        return fetchEngineer(id);
     }
 
 
