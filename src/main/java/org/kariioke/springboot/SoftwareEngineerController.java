@@ -1,6 +1,7 @@
 package org.kariioke.springboot;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +29,13 @@ public class SoftwareEngineerController {
         );
     }
 
-    @GetMapping
-    public void getEngineer(Integer id) {
-        return fetchEngineer(id);
+    @GetMapping("/{id}")
+    public SoftwareEngineer getEngineer(@PathVariable Integer id) {
+        return new SoftwareEngineer(
+                id,
+                "John Doe",
+                "Can code with the eyes closed"
+        );
     }
 
 
