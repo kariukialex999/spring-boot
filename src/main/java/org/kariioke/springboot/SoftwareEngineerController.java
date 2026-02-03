@@ -1,9 +1,6 @@
 package org.kariioke.springboot;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,32 +8,29 @@ import java.util.List;
 @RequestMapping("api/v1/software-engineers")
 public class SoftwareEngineerController {
 
-    public SoftwareEngineerService softwareEngineerService;
+    private final SoftwareEngineerService softwareEngineerService;
+
+    public SoftwareEngineerController(SoftwareEngineerService softwareEngineerService) {
+        this.softwareEngineerService = softwareEngineerService;
+    }
 
     @GetMapping
     public List<SoftwareEngineer> getEngineers() {
-        return List.of(
-                new SoftwareEngineer(
-                        1,
-                        "Alex",
-                        "js, node, react, tailwindcss,"
-                ),
-                new SoftwareEngineer(
-                        2,
-                        "James",
-                        "java, springboot, postgres, docker, microservices"
-                )
-        );
+        return softwareEngineerService.getAllSoftwareEngineers();
     }
 
     @GetMapping("/{id}")
-    public SoftwareEngineer getEngineer(@PathVariable Integer id) {
-        return new SoftwareEngineer(
-                id,
-                "John Doe",
-                "Can code with the eyes closed"
-        );
+    public SoftwareEngineer getEngineerById(@PathVariable Integer id) {
+        return softwareEngineerService.getSoftwareEngineerById(id);
     }
 
-
+    @PostMapping
+    public void addNewSoftware(
+            @RequestBody SoftwareEngineer softwareEngineer) {
+        softwareEngineerService.insertSoftwareEngineer(softwareEngineer);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteSoftwareEngineerById(@PathVariable Integer id) {
+        softwareEngineerService.deleteSoftwareEngineerById(id);
+    }
 }
